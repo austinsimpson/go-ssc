@@ -2,20 +2,20 @@ package main
 
 import (
 	"fmt"
-	"go-ssc/gossc"
+	"go-ssc/ssc"
 )
 
 func main() {
-	ssc := gossc.InitSsc()
-	fmt.Printf("ssc version: %d\nbuild info: %s", ssc.Version, ssc.BuildInfo)
+	sscVersionInfo := ssc.InitSsc()
+	fmt.Printf("ssc version: %d\nbuild info: %s", sscVersionInfo.Version, sscVersionInfo.BuildInfo)
 
-	pvWatts, _ := gossc.CreateModule("pvwattsv8")
+	pvWatts, _ := ssc.CreateModule("pvwattsv8")
 	defer pvWatts.Free()
 	if pvWatts != nil {
 		fmt.Print("Created module")
 	}
 
-	entries := gossc.GetModuleEntries()
+	entries := ssc.GetModuleEntries()
 	for _, entry := range entries {
 		fmt.Printf("Found entry: %s\n%s\n\n", entry.Name, entry.Description)
 	}

@@ -1,9 +1,10 @@
-package gossc
+package ssc
 
 // #cgo CFLAGS: -g -Wall
-// #cgo LDFLAGS: -L../ -lssc
+// #cgo windows LDFLAGS: -L../lib/windows -lssc
+// #cgo darwin LDFLAGS: -L../ lib/darwin/ssc.dylib
 // #include <stdlib.h>
-// #include "../ssc/sscapi.h"
+// #include "../include/sscapi.h"
 import "C"
 import (
 	"errors"
