@@ -9,6 +9,7 @@ import "C"
 import (
 	"errors"
 	"fmt"
+	"unsafe"
 )
 
 type SscDataType uint8
@@ -100,6 +101,24 @@ func (sscData *SscData) GetNumber(variableName string) (SscNumber, bool) {
 
 func (sscData *SscData) SetArray(variableName string, value []SscNumber) {
 	C.ssc_data_set_array(sscData.data, C.CString(variableName), (*C.double)(&value[0]), C.int(len(value)))
+}
+
+func (sscData *SscData) GetArray(variableName string) []SscNumber {
+	var lengthC C.int
+	rawResult := C.ssc_data_get_array(sscData.data, C.CString(variableName), &lengthC)
+	if rawResult != nil {
+		return convertCArray(unsafe.Slice(rawResult, lengthC))
+	} else {
+		return []SscNumber{}
+	}
+}
+
+func convertCArray(rawArray []C.double) []SscNumber {
+	result := []SscNumber{}
+	for _, rawNumber := range rawArray {
+		result = append(result, SscNumber(rawNumber))
+	}
+	return result[:]
 }
 
 func (sscData *SscData) SetMatrix(variableName string, value SscMatrix) error {
