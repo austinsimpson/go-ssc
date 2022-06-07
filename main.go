@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"go-ssc/ssc"
+
+	"github.com/austinsimpson/go-ssc/ssc"
 )
 
 func main() {
