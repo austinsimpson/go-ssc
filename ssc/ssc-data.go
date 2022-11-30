@@ -2,6 +2,7 @@ package ssc
 
 // #cgo CFLAGS: -g -Wall
 // #cgo windows LDFLAGS: -L../lib/windows -lssc
+// #cgo linux LDFLAGS: -L/usr/lib -lssc
 // #cgo darwin LDFLAGS: -L../ lib/darwin/ssc.dylib
 // #include <stdlib.h>
 // #include "../include/sscapi.h"
